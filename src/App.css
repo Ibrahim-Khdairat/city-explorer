@@ -42,13 +42,15 @@
 .form
 {
   font-family: sans-serif;
+  color: white;
+  
 }
 
 .form h1
 {
   text-align: center;
   font-weight: bolder;
-  padding: 30px;
+  padding-top: 30px;
 }
 
 .form p 
@@ -65,8 +67,34 @@
   margin-left: auto;
   margin-right: auto;
   padding: 30px;
+ 
 
 }
+.form form input
+{
+border: 3px solid black;
+height: 40px;
+margin: 10px;
+border-radius: 10px;
+}
+
+.form form button
+{
+  height: 40px;
+  border: 3px solid black;
+ margin: 10px;
+ 
+ border-radius: 10px;
+ font-weight: bold;
+}
+
+.form form button:hover
+{
+  transform: scale(1.5);
+  
+}
+
+
 
 .cardcontainer 
 {
@@ -75,9 +103,19 @@
  border-color: white;
 }
 
+.cardcontainer button:hover
+{
+  transform: scale(1.2);
+
+}
+
+
 .main 
 {
   
-  /* background-image: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/NASA_World_Wind_-_Google_Earth_bar.png'; */
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/6/6b/NASA_World_Wind_-_Google_Earth_bar.png);
+  background-repeat: no-repeat;
+ background-size: cover;
+
 height: 800px;
 }

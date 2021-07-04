@@ -51,7 +51,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className = "main" background="https://cdn.statically.io/img/timelinecovers.pro/facebook-cover/download/earth-from-space-facebook-cover.jpg">
+      <div className = "main" >
         <div className = "form">
         <h1>City Explorer</h1>
         <p>In this page you can search for any city and show the details for it as City Name , Latitude, and Longitude</p>
@@ -67,8 +67,8 @@ class App extends React.Component {
         <MapModal cityInformation={this.state.cityInformation} showMap={this.state.showMap} handleClose={this.handleClose} />
 
 
-        {/* 
-        <h3>City Name : {this.state.cityInformation.display_name}</h3>
+        
+        {/* <h3>City Name : {this.state.cityInformation.display_name}</h3>
         <h3>Latitude : {this.state.cityInformation.lat}</h3>
         <h3>Longitude : {this.state.cityInformation.lon}</h3>
 

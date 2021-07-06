@@ -1,3 +1,28 @@
+# City Explorer
+
+**Author**: Ibrahim Khdairat
+**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+
+## Overview
+This app to xplore the city location and weather status in each city
+
+Name of feature: Weather
+
+Estimate of time needed to complete: 4 hours
+
+Start time: 2:00 Pm
+
+Finish time: 9 : Pm
+
+Actual time needed to complete: 7 hours
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

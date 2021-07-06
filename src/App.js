@@ -3,6 +3,7 @@ import axios from 'axios';
 import CityCard from './components/CityCard';
 import MapModal from './components/MapModal';
 import WeatherCard from './components/WeatherCard';
+import MoviesCard from './components/MoviesCard';
 import Error from './components/Error';
 import './App.css'
 
@@ -20,6 +21,8 @@ class App extends React.Component {
       showMap: false,
       WeatherInformation: [],
       showWeather: false,
+      MoviesInformation: [],
+      showMovies: false,
       showError: false
     }
   }
@@ -35,6 +38,7 @@ class App extends React.Component {
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.cityName}&format=json`;
 
     let responseData = await axios.get(url);
+    console.log(responseData);
 
     await this.setState({
       cityInformation: responseData.data[0],
@@ -44,6 +48,7 @@ class App extends React.Component {
 
     // This for weather information 
     this.renderWeather();
+    this.renderMovies();
   }
 
 
@@ -58,10 +63,25 @@ class App extends React.Component {
       WeatherInformation: weatherData.data,
       showWeather: true,
     })
-
-    console.log(this.state.WeatherInformation.map(day => day.description))
+    console.log(this.state.WeatherInformation);
 
   }
+
+
+
+  renderMovies= async () => {
+    const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
+
+    let moviesUrl = `https://city-explorer-backend-301d25.herokuapp.com/moviesinfo?cityName=${city}&format=json`;
+
+    let moviesData = await axios.get(moviesUrl)
+    await this.setState({
+     MoviesInformation: moviesData.data,
+      showMovies: true,
+    })
+    console.log(this.state.WeatherInformation);
+  }
+
 
 
 
@@ -92,12 +112,13 @@ class App extends React.Component {
           </form>
         </div>
 
-        {/* <p>{this.state.WeatherInformation.map (day => day.description) } </p> */}
 
         {/* <Error showError={this.state.showError} /> */}
         <CityCard cityInformation={this.state.cityInformation} showInformation={this.state.showInformation} showMapModal={this.showMapModal} />
 
         <WeatherCard WeatherInformation={this.state.WeatherInformation} showWeather={this.state.showWeather} cityInformation={this.state.cityInformation} renderWeather={this.renderWeather} />
+
+        <MoviesCard MoviesInformation={this.state.MoviesInformation} showMovies ={this.state.showMovies}/>
 
         <MapModal cityInformation={this.state.cityInformation} showMap={this.state.showMap} handleClose={this.handleClose} />
 

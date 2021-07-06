@@ -17,14 +17,12 @@ class WeatherCard extends React.Component {
 
 
                             {this.props.WeatherInformation.map(day =>
-                                <>
+                                <div>
                                     <Card.Text>
-                                        {day.date}
+                                        {day.date} {' : '} {day.description}
                                     </Card.Text>
-                                    <Card.Text>
-                                        {day.description}
-                                    </Card.Text>
-                                </>
+                                   
+                                </div>
                             )}
                         </Card.Body>
                     </Card>

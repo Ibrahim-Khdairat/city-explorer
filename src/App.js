@@ -53,16 +53,14 @@ class App extends React.Component {
 
     let weatherUrl = `https://city-explorer-backend-301d25.herokuapp.com/weatherinfo?cityName=${city}&format=json`;
 
-    let weatherData = await axios.get(weatherUrl)
+    let weatherData = await axios.get(`http://localhost:3001/weatherinfo?cityName=${this.state.cityName}`)
     await this.setState({
       WeatherInformation: weatherData.data,
       showWeather: true,
     })
-
-    console.log(this.state.WeatherInformation.map(day => day.description))
+    console.log(this.state.WeatherInformation);
 
   }
-
 
 
 
@@ -92,7 +90,6 @@ class App extends React.Component {
           </form>
         </div>
 
-        {/* <p>{this.state.WeatherInformation.map (day => day.description) } </p> */}
 
         {/* <Error showError={this.state.showError} /> */}
         <CityCard cityInformation={this.state.cityInformation} showInformation={this.state.showInformation} showMapModal={this.showMapModal} />

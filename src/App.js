@@ -38,21 +38,19 @@ class App extends React.Component {
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.cityName}&format=json`;
 
     let responseData = await axios.get(url);
-    console.log(responseData);
 
     await this.setState({
       cityInformation: responseData.data[0],
       showInformation: true,
     })
 
-
-    // This for weather information 
+    // This for weather information  && Movies Information
     this.renderWeather();
     this.renderMovies();
   }
 
 
-
+  // Rendering Weather (Getting Response Fron API)
   renderWeather = async () => {
     const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
 
@@ -63,27 +61,21 @@ class App extends React.Component {
       WeatherInformation: weatherData.data,
       showWeather: true,
     })
-    console.log(this.state.WeatherInformation);
-
   }
 
 
-
-  renderMovies= async () => {
+  // Rendering Movies (Getting Response Fron API)
+  renderMovies = async () => {
     const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
 
     let moviesUrl = `https://city-explorer-backend-301d25.herokuapp.com/moviesinfo?cityName=${city}&format=json`;
 
     let moviesData = await axios.get(moviesUrl)
     await this.setState({
-     MoviesInformation: moviesData.data,
+      MoviesInformation: moviesData.data,
       showMovies: true,
     })
-    console.log(this.state.WeatherInformation);
   }
-
-
-
 
 
   // This function response to show the map modal
@@ -99,6 +91,7 @@ class App extends React.Component {
     })
   }
 
+  // This Part for Rendering
   render() {
     return (
       <div className="main" >
@@ -118,14 +111,17 @@ class App extends React.Component {
 
         <WeatherCard WeatherInformation={this.state.WeatherInformation} showWeather={this.state.showWeather} cityInformation={this.state.cityInformation} renderWeather={this.renderWeather} />
 
-        <MoviesCard MoviesInformation={this.state.MoviesInformation} showMovies ={this.state.showMovies}/>
+        
+        {this.state.MoviesInformation.map(movie => {
+          return (
+            <MoviesCard movie={movie} showMovies={true} />
+          )
+
+
+        })}
+        {/* <MoviesCard MoviesInformation={this.state.MoviesInformation} showMovies={this.state.showMovies} /> */}
 
         <MapModal cityInformation={this.state.cityInformation} showMap={this.state.showMap} handleClose={this.handleClose} />
-
-
-
-
-
 
       </div>
     )

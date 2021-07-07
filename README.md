@@ -6,15 +6,15 @@
 ## Overview
 This app to xplore the city location and weather status in each city
 
-Name of feature: Weather
+Name of feature: Lab-09 Refactoring
 
 Estimate of time needed to complete: 4 hours
 
-Start time: 2:00 Pm
+Start time: 12:00 Pm
 
-Finish time: 9 : Pm
+Finish time: 1 : Pm
 
-Actual time needed to complete: 7 hours
+Actual time needed to complete:  1 hours
 
 
 

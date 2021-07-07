@@ -4,16 +4,43 @@ import { Card, Button } from 'react-bootstrap/'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MoviesCard extends React.Component {
-
+    //this.props.showMovies &&
 
     render() {
         return (
+
             <div className="movie">
                 {this.props.showMovies &&
-                    <Card style={{ width: '28rem', backgroundColor: '#b0ceff', boxShadow: '2px 2px 2px black' }} >
+                    <Card style={{ width: '28rem', backgroundColor: 'lightgrey', boxShadow: '2px 2px 2px black' }} >
 
                         <Card.Body>
-                            <Card.Title>Movies List</Card.Title>
+
+
+                            <Card.Title style={{ height: '30px', backgroundColor: '#386ddd', boxShadow: '2px 2px 2px black', textAlign: 'center' }}> Movie Title : {this.props.movie.title}</Card.Title>
+
+                            <Card.Text>
+                                Movie Language :  " {this.props.movie.original_language} "
+                            </Card.Text>
+                            <Card.Text>
+                                Movie Avg. Vote :  {this.props.movie.vote_average}
+                            </Card.Text>
+                            <Card.Text>
+                                Movie Overview :  {this.props.movie.overview}
+                            </Card.Text>
+                            <Card.Text>
+                                Movie Total Vote : {this.props.movie.vote_count}
+                            </Card.Text>
+                            <Card.Text>
+                                Movie Popularity :  {this.props.movie.popularity}
+                            </Card.Text>
+                            <Card.Text>
+                                Movie Release_date :  {this.props.movie.release_date}
+                            </Card.Text>
+
+                            <Card.Img style={{ boxShadow: '2px 2px 2px #ccc' }} variant="top" src={this.props.movie.poster_path}
+                                alt={this.props.movie.title} />
+
+                            {/* <Card.Title>Movies List</Card.Title>
 
 
                             {this.props.MoviesInformation.map(movies =>
@@ -53,7 +80,7 @@ class MoviesCard extends React.Component {
                                     </Card.Text>
 
                                 </div>
-                            )}
+                            )} */}
                         </Card.Body>
                     </Card>
                 }

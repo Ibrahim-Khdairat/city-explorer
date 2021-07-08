@@ -23,6 +23,8 @@ class App extends React.Component {
       showWeather: false,
       MoviesInformation: [],
       showMovies: false,
+      yeldInformation: [],
+      yeldShow: false,
       showError: false
     }
   }
@@ -42,6 +44,7 @@ class App extends React.Component {
     await this.setState({
       cityInformation: responseData.data[0],
       showInformation: true,
+      yeldShow: true
     })
 
     // This for weather information  && Movies Information
@@ -55,6 +58,8 @@ class App extends React.Component {
     const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
 
     let weatherUrl = `https://city-explorer-backend-301d25.herokuapp.com/weatherinfo?cityName=${city}&format=json`;
+    // let weatherUrl = `http://localhost:3001/weatherinfo?cityName=${city}&format=json`;
+
 
     let weatherData = await axios.get(weatherUrl)
     await this.setState({
@@ -64,11 +69,13 @@ class App extends React.Component {
   }
 
 
-  // Rendering Movies (Getting Response Fron API)
+  // Rendering Movies (Getting Response From API)
   renderMovies = async () => {
     const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
 
     let moviesUrl = `https://city-explorer-backend-301d25.herokuapp.com/moviesinfo?cityName=${city}&format=json`;
+    // let moviesUrl = `http://localhost:3001/moviesinfo?cityName=${city}&format=json`;
+
 
     let moviesData = await axios.get(moviesUrl)
     await this.setState({
@@ -76,6 +83,18 @@ class App extends React.Component {
       showMovies: true,
     })
   }
+
+
+
+
+
+  // renderYeld = async () => {
+
+  //   let
+  // }
+
+
+
 
 
   // This function response to show the map modal
@@ -105,13 +124,23 @@ class App extends React.Component {
           </form>
         </div>
 
+        { this.state.yeldShow && 
+        <div className="yeld">
+        <h3>Yelp Fusion</h3>
+
+        <form onSubmit={this.exploreCity} >
+          <input type="text" placeholder="Type of service ..." name="service" />
+          <button type="submit"> Explore </button>
+        </form>
+      </div>
+        }
 
         {/* <Error showError={this.state.showError} /> */}
         <CityCard cityInformation={this.state.cityInformation} showInformation={this.state.showInformation} showMapModal={this.showMapModal} />
 
         <WeatherCard WeatherInformation={this.state.WeatherInformation} showWeather={this.state.showWeather} cityInformation={this.state.cityInformation} renderWeather={this.renderWeather} />
 
-        
+
         {this.state.MoviesInformation.map(movie => {
           return (
             <MoviesCard movie={movie} showMovies={true} />

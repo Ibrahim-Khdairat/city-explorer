@@ -40,7 +40,7 @@ class App extends React.Component {
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.cityName}&format=json`;
 
     let responseData = await axios.get(url);
-
+console.log(responseData);
     await this.setState({
       cityInformation: responseData.data[0],
       showInformation: true,

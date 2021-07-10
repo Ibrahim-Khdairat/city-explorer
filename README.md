@@ -6,15 +6,15 @@
 ## Overview
 This app to xplore the city location and weather status in each city
 
-Name of feature: Lab-09 Refactoring
+Name of feature: Lab-10 Yelp Fusion
 
 Estimate of time needed to complete: 4 hours
 
 Start time: 12:00 Pm
 
-Finish time: 1 : Pm
+Finish time: 4 : Pm
 
-Actual time needed to complete:  1 hours
+Actual time needed to complete:  4 hours
 
 
 

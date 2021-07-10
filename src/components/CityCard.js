@@ -18,7 +18,7 @@ class CityCard extends React.Component {
                                 Latitude :  {this.props.cityInformation.lat}
                             </Card.Text>
                             <Card.Text>
-                                Latitude :  {this.props.cityInformation.lon}
+                                Longitude :  {this.props.cityInformation.lon}
                             </Card.Text>
                             <Card.Text>
                                 To see the map please click on Show Map

@@ -5,6 +5,7 @@ import MapModal from './components/MapModal';
 import WeatherCard from './components/WeatherCard';
 import MoviesCard from './components/MoviesCard';
 import Error from './components/Error';
+import YelpServices from './components/YelpServices';
 import './App.css'
 
 
@@ -23,6 +24,9 @@ class App extends React.Component {
       showWeather: false,
       MoviesInformation: [],
       showMovies: false,
+      yelpInformation: [],
+      yelpShow: false,
+      serviceQuery: '',
       showError: false
     }
   }
@@ -38,7 +42,7 @@ class App extends React.Component {
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.cityName}&format=json`;
 
     let responseData = await axios.get(url);
-
+    console.log(responseData);
     await this.setState({
       cityInformation: responseData.data[0],
       showInformation: true,
@@ -55,6 +59,8 @@ class App extends React.Component {
     const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
 
     let weatherUrl = `https://city-explorer-backend-301d25.herokuapp.com/weatherinfo?cityName=${city}&format=json`;
+    // let weatherUrl = `http://localhost:3001/weatherinfo?cityName=${city}&format=json`;
+
 
     let weatherData = await axios.get(weatherUrl)
     await this.setState({
@@ -64,11 +70,13 @@ class App extends React.Component {
   }
 
 
-  // Rendering Movies (Getting Response Fron API)
+  // Rendering Movies (Getting Response From API)
   renderMovies = async () => {
     const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
 
     let moviesUrl = `https://city-explorer-backend-301d25.herokuapp.com/moviesinfo?cityName=${city}&format=json`;
+    // let moviesUrl = `http://localhost:3001/moviesinfo?cityName=${city}&format=json`;
+
 
     let moviesData = await axios.get(moviesUrl)
     await this.setState({
@@ -76,6 +84,37 @@ class App extends React.Component {
       showMovies: true,
     })
   }
+
+
+
+
+
+  renderYelp = async (e) => {
+    e.preventDefault();
+    let serviceQuery = e.target.service.value;
+
+    const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
+
+    // let yelpUrl = `https://city-explorer-backend-301d25.herokuapp.com/yelp?cityName=${city}&term=${serviceQuery}`
+
+    let yelpUrl = `http://localhost:3001/yelp?cityName=${city}&&term=${serviceQuery}&format=json`;
+
+
+    axios
+      .get(yelpUrl)
+      .then(yelpInfo => {
+        this.setState({
+          yelpInformation: yelpInfo.data,
+          yelpShow: true
+        })
+      })
+
+
+
+
+  }
+
+
 
 
   // This function response to show the map modal
@@ -105,13 +144,25 @@ class App extends React.Component {
           </form>
         </div>
 
+        {this.state.showInformation &&
+          <div className="yelp">
+            <h3>Yelp Fusion</h3>
+
+            <form onSubmit={this.renderYelp} >
+              <input type="text" placeholder="Type of service ..." name="service" />
+
+              <button type="submit"> Explore </button>
+            </form>
+            <a href="#service" >⏬ Go to service ⏬</a>
+          </div>
+        }
 
         {/* <Error showError={this.state.showError} /> */}
         <CityCard cityInformation={this.state.cityInformation} showInformation={this.state.showInformation} showMapModal={this.showMapModal} />
 
         <WeatherCard WeatherInformation={this.state.WeatherInformation} showWeather={this.state.showWeather} cityInformation={this.state.cityInformation} renderWeather={this.renderWeather} />
 
-        
+
         {this.state.MoviesInformation.map(movie => {
           return (
             <MoviesCard movie={movie} showMovies={true} />
@@ -119,7 +170,17 @@ class App extends React.Component {
 
 
         })}
-        {/* <MoviesCard MoviesInformation={this.state.MoviesInformation} showMovies={this.state.showMovies} /> */}
+        <div id="service">
+          {this.state.yelpInformation.map(service => {
+            return (
+              <YelpServices service={service} yelpShow={this.state.yelpShow} />
+            )
+
+
+          })}
+
+        </div>
+
 
         <MapModal cityInformation={this.state.cityInformation} showMap={this.state.showMap} handleClose={this.handleClose} />
 

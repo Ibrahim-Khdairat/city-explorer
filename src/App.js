@@ -5,6 +5,7 @@ import MapModal from './components/MapModal';
 import WeatherCard from './components/WeatherCard';
 import MoviesCard from './components/MoviesCard';
 import Error from './components/Error';
+import YelpServices from './components/YelpServices';
 import './App.css'
 
 
@@ -23,8 +24,9 @@ class App extends React.Component {
       showWeather: false,
       MoviesInformation: [],
       showMovies: false,
-      yeldInformation: [],
-      yeldShow: false,
+      yelpInformation: [],
+      yelpShow: false,
+      serviceQuery: '',
       showError: false
     }
   }
@@ -40,11 +42,10 @@ class App extends React.Component {
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.cityName}&format=json`;
 
     let responseData = await axios.get(url);
-console.log(responseData);
+    console.log(responseData);
     await this.setState({
       cityInformation: responseData.data[0],
       showInformation: true,
-      yeldShow: true
     })
 
     // This for weather information  && Movies Information
@@ -88,11 +89,30 @@ console.log(responseData);
 
 
 
-  // renderYeld = async () => {
+  renderYelp = async (e) => {
+    e.preventDefault();
+    let serviceQuery = e.target.service.value;
 
-  //   let
-  // }
+    const city = this.state.cityName.charAt(0).toUpperCase() + this.state.cityName.slice(1);
 
+    // let yelpUrl = `https://city-explorer-backend-301d25.herokuapp.com/yelp?cityName=${city}&term=${serviceQuery}`
+
+    let yelpUrl = `http://localhost:3001/yelp?cityName=${city}&&term=${serviceQuery}&format=json`;
+
+
+    axios
+      .get(yelpUrl)
+      .then(yelpInfo => {
+        this.setState({
+          yelpInformation: yelpInfo.data,
+          yelpShow: true
+        })
+      })
+
+
+
+
+  }
 
 
 
@@ -124,15 +144,17 @@ console.log(responseData);
           </form>
         </div>
 
-        { this.state.yeldShow && 
-        <div className="yeld">
-        <h3>Yelp Fusion</h3>
+        {this.state.showInformation &&
+          <div className="yelp">
+            <h3>Yelp Fusion</h3>
 
-        <form onSubmit={this.exploreCity} >
-          <input type="text" placeholder="Type of service ..." name="service" />
-          <button type="submit"> Explore </button>
-        </form>
-      </div>
+            <form onSubmit={this.renderYelp} >
+              <input type="text" placeholder="Type of service ..." name="service" />
+
+              <button type="submit"> Explore </button>
+            </form>
+            <a href="#service" >⏬ Go to service ⏬</a>
+          </div>
         }
 
         {/* <Error showError={this.state.showError} /> */}
@@ -148,7 +170,17 @@ console.log(responseData);
 
 
         })}
-        {/* <MoviesCard MoviesInformation={this.state.MoviesInformation} showMovies={this.state.showMovies} /> */}
+        <div id="service">
+          {this.state.yelpInformation.map(service => {
+            return (
+              <YelpServices service={service} yelpShow={this.state.yelpShow} />
+            )
+
+
+          })}
+
+        </div>
+
 
         <MapModal cityInformation={this.state.cityInformation} showMap={this.state.showMap} handleClose={this.handleClose} />
 

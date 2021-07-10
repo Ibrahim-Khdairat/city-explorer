@@ -129,3 +129,70 @@ height: 1100px;
   margin-bottom: 20px;
 
 }
+
+
+.yelp 
+{
+  font-family: sans-serif;
+  color: white;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  background-color: #61dafb;
+}
+
+.yelp h3
+{
+  text-align: center;
+  font-weight: bolder;
+  padding-top: 30px;
+  color: black;
+}
+
+.yelp form 
+{
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+ 
+
+}
+.yelp form input
+{
+border: 3px solid black;
+height: 40px;
+margin: 10px;
+border-radius: 10px;
+}
+
+.yelp form button
+{
+  height: 40px;
+  border: 3px solid black;
+ margin: 10px;
+ 
+ border-radius: 10px;
+ font-weight: bold;
+}
+
+.yelp form button:hover
+{
+  transform: scale(1.5);
+  
+}
+
+.yelp a
+{
+  display: block;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  color:  black;
+}
